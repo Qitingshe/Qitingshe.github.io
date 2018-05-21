@@ -341,3 +341,94 @@ We will do the following steps in order:
 4. Train the network on the training data
 5. Test the network on the test data
 
+
+
+
+---
+
+# PyTorch
+
+- 2002年：torch——lua
+- 2017年：pytorch——python，对Tensor之上的所有模块全部重构，新增自动求导，动态图框架
+
+## 深度学习框架
+
+- Theano
+
+  2008, 一个Python库，用于*定义、优化和计算* 数学表达式，可用GPU加速，结合了计算机代数系统CAS和优化编译器，可定制C语言代码。Theano缺点明显，Keras是基于Theana基础之上的的第三方框架，它提供了更好的封装接口。Theano在2017年被宣布终止开发
+
+  贡献：——计算图为框架核心
+
+  ​	   ——GPU加速计算
+
+- TensorFlow
+
+  2015, 基于计算图实现自动微分求导，使用数据流图进行数值计算，节点为数学运算，边为节点之间传递的多维数组——Tensor。TensorFlow API 支持众多语言和系统，使用C++ Eigen库，可在ARM架构上编译和优化
+
+  缺点：
+
+  - 过于复杂的系统设计
+
+  - 频繁变动的API
+
+  - API接口设计过于晦涩难懂
+
+    ——创建了图、会话、命名空间、PlaceHolder等诸多抽象概念
+
+    ——同一功能有多种实现
+
+  - 文档混乱脱节
+
+  TensorFlow虽不完美，但社区强大，适合生产环境
+
+- Keras
+
+  一个高层神经网络API，纯Python编写，使用TensorFlow、Theano及CNTK作为后端。最容易上手的框架之一
+
+  缺点：过度封装导致丧失灵活性和运行缓慢，学习者只是调用接口，无法深入底层细节
+
+- Caffe/Caffe2(Convolutional Architecture for Fast Embedding)
+
+  C++，支持命令行。优点：简洁快速，缺点：缺乏灵活性，难扩展，难配置，Caffe2是之后的改良版，速度快，性能优异，适合生产环境
+
+- MXNet
+
+  强大的分布式支持、内存显存优化明显，由于MXNet长期处于快速迭代的过程中，但文档却长期未更新，新用户难以掌握，老用户需要查阅源码才能使用。Gluon是MXNet 的接口之一，它模仿PyTorch的接口设计。
+
+- CNTK
+
+  微软开源，支持CPU和GPU模式，计算图结构，叶子节点代表输入或网络参数，其他节点代表计算步骤，CNTK是一个非常强大的命令行系统，擅长语音方面的研究
+
+- 其他框架
+
+  百度：PaddlePaddle
+
+  CMU：DyNet
+
+  英特尔：Nervana
+
+  Amazon：DSSTNE
+
+  C++：tiny-dnn
+
+  Java：Deeplearning4J
+
+  针对移动设备：CoreML、MDL
+
+
+## 计算图
+
+- 动态图：define and run，一次定义多次运行，一旦创建不可修改，定义时使用特殊语法，同时无法使用if、while和for-loop。静态图一般比较庞大，占用过高的显存，静态图可以预先优化。
+- 静态图：define by run，多次定义多次运行，每次前向传播(每次调用代码运行)都会创建一幅新的计算图
+
+## Tensor
+
+PyTorch中重要的数据结构，类似于高维数组
+
+- 一个数——标量
+- 一维数组——向量
+- 二维数组——矩阵
+- 更高维数组
+
+Tensor很接近numpy的ndarrys，但Tensor可以使用GPU加速。
+
