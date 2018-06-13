@@ -37,10 +37,10 @@ Detection:What and Where
 - Regionlet representation for handing object deformations
 - Classification of region proposals based on boosted detector cascades
 - Integration with CNN features
-![Regionlet](../img/Detection-Regionlet.png)
+![Regionlet](../pic/Detection-Regionlet.png)
 
 
-![Regionlet](../img/Detection-R-CNN.png)
+![Regionlet](../pic/Detection-R-CNN.png)
 
 
 
