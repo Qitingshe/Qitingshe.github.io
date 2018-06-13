@@ -51,7 +51,7 @@ $$
 该公式表示了人类的视觉系统，在不同背景下，即便相同的亮度也会造成不同的感觉
 
 
-![](../pic/center.png)
+![](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/pic/center.png)
 从这幅图可以看到，，$\beta$值与不同局部均值的关系，越暗的背景，人们观察到的前景越亮
 
 
@@ -117,7 +117,7 @@ $$
 
 
 **流程图**
-![](../pic/flowchart.png)
+![](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/pic/flowchart.png)
 
 
 ## 优点和总结
