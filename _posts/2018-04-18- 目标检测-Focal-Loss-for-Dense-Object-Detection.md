@@ -43,25 +43,33 @@ R-CNN系的方法是目前精度最高的方法。在R-CNN方法中，正负类�
 # Focal Loss
 
 Focal Loss 从交叉熵损失而来，二分类的交叉熵损失如下：
+
 $$
 \text{CE}(p, y) = \begin{cases}-\log(p) \quad &\text{if}\quad y = 1\\ -\log(1-p) &\text{otherwise}\end{cases}
 $$
+
 对应的，多分类的交叉熵损失是：
+
 $$
 \text{CE}(p,y)=-log(p_y)
 $$
+
 如下图所示，蓝色线为交叉熵损失函数随着$p_t$ 的变化曲线。当概率大于0.5,即认为是易分类的简单样本时，值仍然较大。这样，很多简单样本累加起来，就很可能盖住那些稀少的不易正确分类的类别。
 
 ![2](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/pic/focal_loss_vs_ce_loss.jpg)
 
 为了改善类别样本分布不均衡的问题，已经有人提出使用加上权值的交叉熵损失，如下（即用参数$\alpha_t$ 来平衡，这组参数可以是超参数，也可以由类别的比例倒数决定）。作者将其作为比较的baseline。
+
 $$
 \text{CE}(p)=-\alpha_t log(p_t)
 $$
+
 作者提出的则是一个自适应调节的权重，即Focal Loss，定义如下。由上图可以看到$\gamma$ 取值不同的时候的函数值变化。作者发现，$\gamma=2$ 时能够获得最佳的效果提升。
+
 $$
 \text{FL}(p_t)=-(1-p_t)^\gamma log(p_t)
 $$
+
 在实际实验中，作者使用的是加权之后的Focal Loss，作者发现这样能够带来些许的性能提升。
 
 # RetinaNet

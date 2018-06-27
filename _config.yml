@@ -22,7 +22,7 @@ RSS: false
 zhihu_username:     qi-ting-she-90
 github_username:    qitingshe
 facebook_username:  qitingshe
-#jianshu_username:  qitingshe
+jianshu_username:  ac124bbc4b78
 #twitter_username:  qitingshe
 
 
@@ -101,10 +101,10 @@ friends: [
     {
         title: "騡儿",
         href: "https://blog.csdn.net/shenquanyue/"
+    },{
+        title: "简书·QITINGSHE",
+        href: "https://www.jianshu.com/u/ac124bbc4b78"
     },#{
-#        title: "简书·BY",
-#        href: "http://www.jianshu.com/u/e71990ada2fd"
-#    },{
 #        title: "Apple",
 #        href: "https://apple.com"
 #    },{

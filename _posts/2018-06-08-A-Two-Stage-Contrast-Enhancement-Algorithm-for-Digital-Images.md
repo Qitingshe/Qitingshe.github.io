@@ -111,6 +111,7 @@ v(x,y)=\frac{\log(Tone(w(x,y))*(\beta-1)+1)}{\log(\beta)}*E(w(x,y),w_{avg}(x,y))
 $$
 
 其中
+
 $$
 E(w(x,y),w_{avg}(x,y))=\bigg(\frac{w(x,y)}{w_{avg}(x,y)}^{\alpha\big(1-\frac{w(x,y)}{Tone(w(x,y))}*\frac{dTone(w(x,y))}{dw(x,y)}\big)}\bigg)
 $$
