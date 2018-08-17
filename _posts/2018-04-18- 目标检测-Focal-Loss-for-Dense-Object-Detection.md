@@ -56,7 +56,7 @@ $$
 
 如下图所示，蓝色线为交叉熵损失函数随着$p_t$ 的变化曲线。当概率大于0.5,即认为是易分类的简单样本时，值仍然较大。这样，很多简单样本累加起来，就很可能盖住那些稀少的不易正确分类的类别。
 
-![2](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/pic/focal_loss_vs_ce_loss.jpg)
+![2](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/_posts/assets/focal_loss_vs_ce_loss.jpg)
 
 为了改善类别样本分布不均衡的问题，已经有人提出使用加上权值的交叉熵损失，如下（即用参数$\alpha_t$ 来平衡，这组参数可以是超参数，也可以由类别的比例倒数决定）。作者将其作为比较的baseline。
 
@@ -75,12 +75,6 @@ $$
 # RetinaNet
 
 基于ResNet 和 Feature Pyramid Net (FPN) 设计了一种新的oner-stage检测框架，命名为RetinaNet。
-
-
-
-![1534527185993](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/_posts/assets/1534527185993.png) 
-
-
 
 
 
