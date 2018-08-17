@@ -78,7 +78,7 @@ $$
 
 
 
-![1534527185993](assets/1534527185993.png) 
+![1534527185993](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/_posts/assets/1534527185993.png) 
 
 
 
