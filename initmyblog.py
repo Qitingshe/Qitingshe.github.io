@@ -37,8 +37,8 @@ def imagepath(name=""):
         name = "_posts/"+filename(name)+".md"
     md = open(name, "r")
     f = md.read()
-    pattern = r"](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/pic/"
-    pat = "\]\(pic/"
+    pattern = r"](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/_posts/assets/"
+    pat = "\]\(../_posts/assets/"
     f1 = re.sub(pat, pattern, f)
     md.close()
     md = open(name, "w")
