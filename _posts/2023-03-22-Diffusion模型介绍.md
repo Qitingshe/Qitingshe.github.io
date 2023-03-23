@@ -17,13 +17,13 @@ tags:
 
 Diffusion模型又称为扩散模型，它涉及到几个概念，扩散过程、反向过程。
 
-**扩散过程**：对一张图像逐步添加高斯噪声得到 $\mathbf{x}_t$，经过 $T$ 步之后，得到 $\mathbf{x}_T$ 是一个符合标高斯分布的噪声(你选择其他分布的噪声也不是不可以，这里不是强制约束)
+扩散过程：对一张图像逐步添加高斯噪声得到 $\mathbf{x}_t$，经过 $T$ 步之后，得到 $\mathbf{x}_T$ 是一个符合标高斯分布的噪声(你选择其他分布的噪声也不是不可以，这里不是强制约束)
 ![](https://github.com/Qitingshe/Qitingshe.github.io/raw/master/_posts/assets/diffusion1.png)
-**反向过程**：扩散过程是数据噪声化，那么反向过程就是其逆过程，一个去噪的过程，从一个随机高斯噪声逐渐去噪最终生成一张图片，所以反向过程也是一个数据**生成过程**
+反向过程：扩散过程是数据噪声化，那么反向过程就是其逆过程，一个去噪的过程，从一个随机高斯噪声逐渐去噪最终生成一张图片，所以反向过程也是一个数据生成过程
 
 Diffusion模型就是构建一个预测噪声的模型 $M$，假定从标准高斯分布中采样的噪声为 $\epsilon$，将这个噪声按照一定方法添加到图像数据 $\mathbf{x}_0$ 中，得到 $\mathbf{x}_t$，将 $\mathbf{x}_t$输入到模型$M(\mathbf{x}_t)$，模型输出噪声为 $\^\epsilon$ ，期望这个输出噪声所在的分布与 $\epsilon$所对应的标准高斯分布一致，可以通过KL散度来计算分布的相似度（可以转换为求两个噪声的L2损失）。
 
-从上面描述我们可以发现，模型的任务其实是希望从输入 $\mathbf{x}_t$ 中恢复噪声 $\epsilon$，但是模型并不知道原始图像 $\mathbf{x}_0$具体是什么，这个时候模型就需要在训练过程中，不断**学习整个训练集的数据分布**，借此来估计原始输入 $\mathbf{x}_0$，也就是隐式地学习了图像数据的构建信息。
+从上面描述我们可以发现，模型的任务其实是希望从输入 $\mathbf{x}_t$ 中恢复噪声 $\epsilon$，但是模型并不知道原始图像 $\mathbf{x}_0$具体是什么，这个时候模型就需要在训练过程中，不断学习整个训练集的数据分布，借此来估计原始输入 $\mathbf{x}_0$，也就是隐式地学习了图像数据的构建信息。
 
 在Inference阶段，其实是一个$T$次循环的去噪过程，首先从标准高斯分布中采样一个噪声 $\mathbf{x}_T$ ，然后利用这个噪声 $\mathbf{x}_T$ 计算出下一个采样 $\mathbf{x}_{T-1}$ 的分布，从中采样出 $\mathbf{x}_{T-1}$ ，然后送入模型预测一个噪声 $\epsilon_{T-1}$ ，利用这个噪声对 $\mathbf{x}_{T-1}$ 进行去噪，生成 $\mathbf{x}_{T-2}$ ，$\mathbf{x}_{T-2}$ 理论上讲会更加趋近于图像数据的分布。
 以此循环，最后生成$\mathbf{x}_0$，即完成图像的生成。这就是目前Diffusion模型的工作流程。
@@ -66,14 +66,15 @@ DDPM论文3.2节所提到的算法1就是基于该公式得到的
 
 反向过程就是上述扩散过程的逆过程，即要构建$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，这样我们就可以从随机噪声$\mathbf{x}_T\sim \mathcal{N}(\mathbf{0},\mathbf{I})$中重建真实数据样本——生成图片了。
 
-但是想要估计出$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$并不容易，因为这需要全量数据集，因此我们需要学习一个模型$p_\theta$来**近似之前的条件概率分布**，这样就可以执行之前说的反向过程了
+但是想要估计出 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 并不容易，因为这需要全量数据集，因此我们需要学习一个模型 $p_\theta$ 来近似之前的条件概率分布，这样就可以执行之前说的反向过程了
 
 $$
 p_\theta\left(\mathbf{x}_{0: T}\right)=p\left(\mathbf{x}_T\right) \prod_{t=1}^T p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right) \quad p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)
 $$
 
-其中，$p(\mathbf{x}_T)=\mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$，
-$p_\theta(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$是一个参数化的高斯分布，其均值和方差为$\boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right)$和$\mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)$
+其中，$p(\mathbf{x}_T)=\mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$
+
+$p_\theta(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$是一个参数化的高斯分布，其均值和方差为$\boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right)$和 $\mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)$
 
 建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，因为不知道需要恢复到哪个样本，所以需要加上$\mathbf{x}_0$的后验分布$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t,\mathbf{x}_0)$
 
@@ -180,9 +181,9 @@ $$
 L_{t-1}^{\text {simple }}=\mathbb{E}_{\mathbf{x}_0, \epsilon \sim \mathcal{N}(0, \mathbf{I})}\left[\left\|\epsilon-\epsilon_\theta\left(\sqrt{\bar{\alpha}_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}_t} \epsilon, t\right)\right\|^2\right]
 $$
 
-这样就由原来**预测均值转换成预测噪音** $\epsilon$
+这样就由原来预测均值转换成预测噪音 $\epsilon$
 
-对应优化目标变为**随机生成噪音数据** $\epsilon$ 与**模型预测的噪音** $\epsilon_\theta\left(\sqrt{\bar{\alpha}_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}_t} \epsilon, t\right)$ 的L2损失。
+对应优化目标变为随机生成噪音数据 $\epsilon$ 与模型预测的噪音 $\epsilon_\theta\left(\sqrt{\bar{\alpha}_t} \mathbf{x}_0+\sqrt{1-\bar{\alpha}_t} \epsilon, t\right)$ 的L2损失。
 
 ## 总结
 
