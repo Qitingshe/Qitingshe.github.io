@@ -141,7 +141,8 @@ $$
 
 每个KL散度（除了$L_0$）都表示两个高斯分布的相似度，训练阶段$L_T$可以被忽略，因为$p$没有可学习参数，而$x_T$是一个高斯随机噪声，$L_0$单独采用一个解码器进行图像重建。
 
-之前定义了$p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$为一个参数化的高斯分布$\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)$
+之前定义了 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 为一个参数化的高斯分布 $\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)$ 
+
 对于两个高斯分布的KL散度，其计算公式为
 
 $$
