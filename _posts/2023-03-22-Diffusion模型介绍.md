@@ -38,10 +38,10 @@ $$
 q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)=\mathcal{N}\left(\mathbf{x}_t ; \sqrt{1-\beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}\right) \quad q\left(\mathbf{x}_{1: T} \mid \mathbf{x}_0\right)=\prod_{t=1}^T q\left(\mathbf{x}_t \mid \mathbf{x}_{t-1}\right)
 $$
 
-其中$\left\{\beta_t\right\}_{t=1}^T$表示每步添加的噪声的方差，取值区间为$0\sim 1$，称为variance schedule或noise schedule，通常$t$越大方差越大，即$\beta_1<\beta_2<...<\beta_T$
+其中 $\left\{\beta_t\right\}_{t=1}^T$ 表示每步添加的噪声的方差，取值区间为$0\sim 1$，称为variance schedule或noise schedule，通常$t$越大方差越大，即$\beta_1<\beta_2<...<\beta_T$
 
-上述过程有一个重要性质：可以直接基于原始数据$\mathbf{x}_0$来对任意$t$步的$\mathbf{x}_t$进行采样
-令$\alpha_t=1-\beta_t$，且$\bar{\alpha}_t=\prod_{i=1}^t\alpha_i$，可得
+上述过程有一个重要性质：可以直接基于原始数据 $\mathbf{x}_0$来对任意$t$步的 $\mathbf{x}_t$进行采样
+令 $\alpha_t=1-\beta_t$，且$\bar{\alpha}_t=\prod_{i=1}^t\alpha_i$，可得
 
 $$
 \begin{array}{rlr}
