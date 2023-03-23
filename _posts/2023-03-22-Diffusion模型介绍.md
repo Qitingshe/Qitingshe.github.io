@@ -40,8 +40,8 @@ $$
 
 其中 $\{\beta_t\}_{t=1}^T$ 表示每步添加的噪声的方差，取值区间为$0\sim 1$，称为variance schedule或noise schedule，通常$t$越大方差越大，即$\beta_1<\beta_2<...<\beta_T$
 
-上述过程有一个重要性质：可以直接基于原始数据 $\mathbf{x}_0$来对任意$t$步的 $\mathbf{x}_t$进行采样
-令 $\alpha_t=1-\beta_t$，且$\bar{\alpha}_t=\prod_{i=1}^t\alpha_i$，可得
+上述过程有一个重要性质：可以直接基于原始数据 $\mathbf{x}_0$ 来对任意 $t$步的 $\mathbf{x}_t$进行采样
+令 $\alpha_t=1-\beta_t$，且 $\bar{\alpha}_t=\prod_{i=1}^t\alpha_i$，可得
 
 $$
 \begin{array}{rlr}
@@ -64,7 +64,7 @@ DDPM论文3.2节所提到的算法1就是基于该公式得到的
 
 ### 反向过程
 
-反向过程就是上述扩散过程的逆过程，即要构建$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，这样我们就可以从随机噪声$\mathbf{x}_T\sim \mathcal{N}(\mathbf{0},\mathbf{I})$中重建真实数据样本——生成图片了。
+反向过程就是上述扩散过程的逆过程，即要构建 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，这样我们就可以从随机噪声 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{0},\mathbf{I})$中重建真实数据样本——生成图片了。
 
 但是想要估计出 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 并不容易，因为这需要全量数据集，因此我们需要学习一个模型 $p_\theta$ 来近似之前的条件概率分布，这样就可以执行之前说的反向过程了
 
@@ -74,9 +74,9 @@ $$
 
 其中，$p(\mathbf{x}_T)=\mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$
 
-$p_\theta(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$是一个参数化的高斯分布，其均值和方差为$\boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right)$和 $\mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)$
+$p_\theta(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 是一个参数化的高斯分布，其均值和方差为 $\boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right)$和 $\mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)$
 
-建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，因为不知道需要恢复到哪个样本，所以需要加上$\mathbf{x}_0$的后验分布$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t,\mathbf{x}_0)$
+建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，因为不知道需要恢复到哪个样本，所以需要加上 $\mathbf{x}_0$的后验分布$q(\mathbf{x}_{t-1}\mid \mathbf{x}_t,\mathbf{x}_0)$
 
 根据贝叶斯公式，得到
 
@@ -140,9 +140,12 @@ L_0 & =-\log p_\theta\left(\mathbf{x}_0 \mid \mathbf{x}_1\right)
 \end{aligned}
 $$
 
-每个KL散度（除了$L_0$）都表示两个高斯分布的相似度，训练阶段$L_T$可以被忽略，因为$p$没有可学习参数，而$x_T$是一个高斯随机噪声，$L_0$单独采用一个解码器进行图像重建。
+每个KL散度（除了 $L_0$）都表示两个高斯分布的相似度，训练阶段 $L_T$ 可以被忽略，因为 $p$ 没有可学习参数，而 $x_T$ 是一个高斯随机噪声， $L_0$ 单独采用一个解码器进行图像重建。
 
-之前定义了 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 为一个参数化的高斯分布 $\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)$ 
+之前定义了 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$ 为一个参数化的高斯分布
+
+$$\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)
+$$ 
 
 对于两个高斯分布的KL散度，其计算公式为
 
