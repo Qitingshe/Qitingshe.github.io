@@ -47,7 +47,7 @@ $$
 
 上述过程有一个重要性质：可以直接基于原始数据 $\mathbf{x}_0$ 来对任意 $t$ 步的 $\mathbf{x}_t$ 进行采样
 
-令 $\alpha_t=1-\beta_t$，且 $ \bar{\alpha}_{t} = \prod_{ i=1 }^{t} \alpha_i $，可得
+令 $\alpha_t=1-\beta_t$，且 $ \bar{\alpha}_{t} = \prod_{ i=1 }^{t} \alpha_{i} $，可得
 
 $$
 \begin{array}{rlr}
