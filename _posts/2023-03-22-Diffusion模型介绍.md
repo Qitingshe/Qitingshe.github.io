@@ -47,7 +47,7 @@ $$
 
 上述过程有一个重要性质：可以直接基于原始数据 $\mathbf{x}_0$ 来对任意 $t$ 步的 $\mathbf{x}_t$ 进行采样
 
-令 $\alpha_t=1-\beta_t$，且 $ \bar{\alpha}{_t} = \prod_{ i=1 }^{t} \alpha{_i} $，可得
+令 $\alpha_t=1-\beta_t$，且 $ \bar{\alpha}{_t} = \prod_{ i=1 }^{t} \alpha{\_i} $，可得
 
 $$
 \begin{array}{rlr}
@@ -72,7 +72,7 @@ DDPM论文3.2节所提到的算法1就是基于该公式得到的
 
 反向过程就是上述扩散过程的逆过程，即要构建 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_t)$，这样我们就可以从随机噪声 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{0},\mathbf{I})$中重建真实数据样本——生成图片了。
 
-但是想要估计出 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_{t})$ 并不容易，因为这需要利用到全量数据集的先验信息，因此我们需要学习一个模型 $ p_{\theta} $ 来近似之前的条件概率分布，这样就可以执行之前说的反向过程了
+但是想要估计出 $q(\mathbf{x}_{t-1}\mid \mathbf{x}_{t})$ 并不容易，因为这需要利用到全量数据集的先验信息，因此我们需要学习一个模型 $ p\_{\theta} $ 来近似之前的条件概率分布，这样就可以执行之前说的反向过程了
 
 $$
 p_\theta\left(\mathbf{x}_{0: T}\right)=p\left(\mathbf{x}_T\right) \prod_{t=1}^T p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right) \quad p_\theta\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)=\mathcal{N}\left(\mathbf{x}_{t-1} ; \boldsymbol{\mu}_\theta\left(\mathbf{x}_t, t\right), \mathbf{\Sigma}_\theta\left(\mathbf{x}_t, t\right)\right)
@@ -80,9 +80,9 @@ $$
 
 其中，$p(\mathbf{x}_T)=\mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$
 
-而上面公式中的 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_{t})$ 是一个参数化的高斯分布，其均值为 $\boldsymbol{\mu}_{\theta}\left(\mathbf{x}_{t}, t\right)$， 方差为 $\mathbf{\Sigma}_{\theta} \left(\mathbf{x}_{t}, t\right)$
+而上面公式中的 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_{t})$ 是一个参数化的高斯分布，其均值为 $\boldsymbol{\mu}\_{\theta}\left(\mathbf{x}_{t}, t\right)$， 方差为 $\mathbf{\Sigma}_{\theta} \left(\mathbf{x}_{t}, t\right)$
 
-建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理 $ q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t}) $，因为不知道需要恢复到哪个样本，所以需要加上 $ \mathbf{x}_{0} $ 的后验分布 $ q(\mathbf{x}_{t-1}\mid \mathbf{x}_{t},\mathbf{x}_{0})$
+建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理 $ q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t}) $，因为不知道需要恢复到哪个样本，所以需要加上 $ \mathbf{x}\_{0} $ 的后验分布 $ q(\mathbf{x}_{t-1}\mid \mathbf{x}_{t},\mathbf{x}_{0})$
 
 根据贝叶斯公式，得到
 
