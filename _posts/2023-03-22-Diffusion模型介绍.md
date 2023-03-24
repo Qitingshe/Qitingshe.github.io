@@ -80,7 +80,7 @@ $$
 
 其中，$p(\mathbf{x}_T)=\mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$
 
-而上面公式中的 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}_{t})$ 是一个参数化的高斯分布，其均值为 $\boldsymbol{\mu}\_{\theta}\left(\mathbf{x}_{t}, t\right)$， 方差为 $\mathbf{\Sigma}_{\theta} \left(\mathbf{x}_{t}, t\right)$
+而上面公式中的 $p_{\theta}(\mathbf{x}_{t-1}\mid \mathbf{x}\_{t})$ 是一个参数化的高斯分布，其均值为 $\boldsymbol{\mu}\_{\theta}\left(\mathbf{x}_{t}, t\right)$， 方差为 $\mathbf{\Sigma}_{\theta} \left(\mathbf{x}_{t}, t\right)$
 
 建模成功后，就要考虑如何获得真实的条件分布了，我们无法直接处理 $ q(\mathbf{x}_{t-1} \mid \mathbf{x}_{t}) $，因为不知道需要恢复到哪个样本，所以需要加上 $ \mathbf{x}\_{0} $ 的后验分布 $ q(\mathbf{x}_{t-1}\mid \mathbf{x}_{t},\mathbf{x}_{0})$
 
